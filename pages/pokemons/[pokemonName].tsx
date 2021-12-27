@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next'
+import { ParsedUrlQuery } from 'querystring'
 import { useRouter } from 'next/router'
 import { createUseStyles } from 'react-jss'
 import Head from 'next/head'
@@ -13,17 +14,19 @@ import Evolutions from '../../components/pokemonComponents/evolutions'
 
 const useStyles = createUseStyles({
     pokemonhead: {
-        background: 'white',
+        //background: '#CC0000',
         textAlign: 'center',
         textTransform: 'capitalize',
-        fontSize: 22,
-        padding: 1,
+        fontSize: 25,
+        padding: 0,
         '& h2': {
-            margin: 0,
+            fontWeight: 800,
+            letterSpacing: 2,
+            margin: { top: 20, bottom: 25},
             '& span': {
-                marginLeft: '20px',
-                color: 'gray',
-                fontWeight: 500
+                marginLeft: '25px',
+                color: 'white',
+                fontWeight: 400
             }
         },
     },
@@ -34,32 +37,50 @@ const useStyles = createUseStyles({
         justifyContent: 'space-between',
         marginTop: 10,
         '& > div': {
-            padding: 10
+            paddingLeft: 30,
+            '&:first-child': { padding: 30 }
         },
         '& .left': {
             flexGrow: '1',
-            background: '#f0f0f0',
-            '& img': {
+            background: '#dcd7d6',
+            boxShadow: '5px 4px 10px 1px rgba(0,0,0,0.4)',
+            verticalAlign: 'middle',
+            '& div': {
+                display: 'flex',
+                alignItems: 'center',
+                height: '100%',
                 background: 'black',
-                display: 'block',
-                margin: 'auto',
-                minHeight: 115
-            }
+                '& img': {
+                    display: 'block',
+                    margin: 'auto',
+                    minHeight: 150
+                }
+            },
         },
         '& .right': {
             flexGrow: '2',
             color: 'white',
-            background: '#3B4CCA'
+            '& .typeBadge': {
+                background: '#0abde9',
+                marginTop: 35,
+                padding: '5px 15px',
+                boxShadow: '5px 4px 10px 1px rgba(0,0,0,0.4)'
+            }
         }
     },
     evolutionParent: {
-        paddingBottom: 20
+        paddingBottom: 20,
+        '& > div': {
+            marginTop: 35
+        }
     }
 })
 
+interface IParams extends ParsedUrlQuery {
+    pokemonName: string
+}
 
 type PokemonDescriptionProps = {
-    //pokemon: Array<any>
     pokemon: {
         id: number
         image: string
@@ -68,7 +89,25 @@ type PokemonDescriptionProps = {
         abilities: Array<any>
         types: Array<any>
         stats: Array<any>
-        evolutionChain: Array<any>
+        evolutionChain: {
+            evolutionChain: {
+                chain: {
+                    species: {
+                        name: string
+                    },
+                    evolves_to: {
+                        species: {
+                            name: string
+                        },
+                        evolves_to: {
+                            species: {
+                                name: string
+                            },
+                        }[]
+                    }[]
+                }
+            }
+        }
         previous: { name: string | null }
         next: { name: string | null }
     }
@@ -105,7 +144,10 @@ function PokemonDescription(props: PokemonDescriptionProps) {
                 </div>
                 <section className={classes.pokemondescription}>
                     <div className='left'>
-                        <img src={props.pokemon.image} />
+                        <div>
+
+                            <img src={props.pokemon.image} />
+                        </div>
                     </div>
                     <div className='right'>
                         <Characteristics
@@ -113,7 +155,7 @@ function PokemonDescription(props: PokemonDescriptionProps) {
                             weight={props.pokemon.weight}
                             abilities={props.pokemon.abilities}
                         />
-                        <div>
+                        <div className='typeBadge'>
                             <h3>Type</h3>
                             <TypeBadge badges={props.pokemon.types} />
                         </div>
@@ -124,8 +166,10 @@ function PokemonDescription(props: PokemonDescriptionProps) {
                         <h3>Stats</h3>
                         <StatsBar stats={props.pokemon.stats} />
                     </div>
-                    <h3>Evoluciones</h3>
-                    <Evolutions evolution={props.pokemon.evolutionChain.evolutionChain.chain} />
+                    <div>
+                        <h3>Evoluciones</h3>
+                        <Evolutions evolution={props.pokemon.evolutionChain.evolutionChain.chain} />
+                    </div>
                 </section>
             </General>
         </Container>
@@ -133,7 +177,6 @@ function PokemonDescription(props: PokemonDescriptionProps) {
 }
 
 export default PokemonDescription
-
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const getExtraData: any = async (pkmnurl: string) => {
@@ -172,17 +215,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
         }
     }
 
-    /*type paramsType = {
-        pokemonName: string
-    }*/
-    const { params } = context
-    //const { params: any } = context // error
-    /*
-    */
+    const { pokemonName } = context.params as IParams
     try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${params.pokemonName}`)
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
         const data = await response.json()
-        console.log(data.id)
+        console.log(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
         if (!data.id) {
             return {
                 notFound: true
@@ -214,7 +251,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
                 }
             }
         }
-    
+
     } catch (e) {
         return {
             notFound: true
@@ -225,13 +262,29 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export async function getStaticPaths() {
-    // const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    // const data = await response.json()
-    // const paths = data.map(post => {
     //   return {
     //     params: { postId: `${post.id}` }
     //   }
-    // })
+    /*
+    fetch('https://pokeapi.co/api/v2/pokemon/')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            type Poke = {
+                name: string
+                url: string
+            }
+            data.results.map((el: Poke) => {
+                return {
+                    paths: [
+                        { params: { pokemonName: `${el.name}` } },
+                    ],
+                    fallback: true
+                }
+            })
+        })
+        .catch(e => console.log(e))
+        */
 
     return {
         paths: [

@@ -10,6 +10,8 @@ const useStyles = createUseStyles({
         background: '#CC0000',
         alignItems: 'flex-end',
         height: 200,
+        borderTop: 'solid 2px black',
+        borderBottom: 'solid 2px black'
     }
 })
 

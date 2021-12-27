@@ -11,6 +11,13 @@ const useStyles = createUseStyles({
         '& span': {
             fontWeight: 'bold'
         }
+    },
+    '@media (min-width: 768px)': {
+        foot: {
+            width: 750,
+            maxWidth: 750,
+            margin: '0px auto',
+        },
     }
 })
 

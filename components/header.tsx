@@ -3,19 +3,29 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
     head: {
-        background: 'white',
+        background: '#ee1515',
+        color: 'white',
         display: 'block',
+        borderBottom: 'solid 2px black',
         '& h1': {
             fontWeight: 'bold',
+            letterSpacing: 2,
             margin: {
                 top: 0, bottom: 0
             },
             padding: {
-                top: 20,
-                bottom: 20
+                top: 15,
+                bottom: 15
             },
             textAlign: 'center'
         }
+    },
+    '@media (min-width: 768px)': {
+        head: {
+            width: 750,
+            maxWidth: 750,
+            margin: '0px auto',
+        },
     }
 })
 

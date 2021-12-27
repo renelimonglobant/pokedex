@@ -2,8 +2,10 @@ import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
     characteristics: {
-        border: 'solid 1px white',
-        borderRadius: 10,
+        //border: 'solid 1px white',
+        //borderRadius: 10,
+        background: '#3B4CCA',
+        boxShadow: '5px 4px 10px 1px rgba(0,0,0,0.4)',
         color: 'white',
         display: 'flex',
         flexDirection: 'row',

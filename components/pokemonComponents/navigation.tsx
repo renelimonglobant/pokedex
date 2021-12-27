@@ -8,14 +8,23 @@ const useStyles = createUseStyles({
         borderRadius: '0px 0px 90px 90px',
         display: 'flex',
         marginBottom: 15,
+        borderTop: 'solid 1px white',
         padding: 5,
+        '& a:hover': {
+            background: '#123',
+        },
         '& > a, > div': {
             flexGrow: 1,
             flexBasis: '50%',
+            boxShadow: '0px 9px 9px rgba(0,0,0,0.4)',
             '&:first-child': {
-                borderRight: '1px solid white'
+                borderRight: '1px solid white',
+                borderRadius: '0px 0px 0px 90px',
             },
-            '& h3': {
+            '&:nth-child(2)': {
+                borderRadius: '0px 0px 90px 0px',
+            },
+                '& h3': {
                 margin: '5px 0',
                 fontSize: 17,
                 '& span': {

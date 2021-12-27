@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
 import { createUseStyles } from 'react-jss'
 import { GetStaticProps } from 'next'
@@ -7,6 +8,10 @@ import Pokemon from '../components/pokemon'
 import General from '../components/grid/generalTemplate'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
+interface IParams extends ParsedUrlQuery {
+    pagination: string
+}
 
 type StaticProps = {
     //pokemons: Array<any>
@@ -28,6 +33,7 @@ const myStyles = createUseStyles({
         '& article': {
             background: 'white',
             width: '23%',
+            boxShadow: '5px 4px 10px 1px rgba(0,0,0,0.4)',
             marginBottom: 18
         }
     },
@@ -56,6 +62,7 @@ const Pagination: NextPage<StaticProps> = (props: StaticProps) => {
     const styles = myStyles()
     const router = useRouter()
     //console.log(props.pokemons.results)
+    //console.log(router.query.pagination)
     return (
         <Container>
             <Head>
@@ -72,10 +79,10 @@ const Pagination: NextPage<StaticProps> = (props: StaticProps) => {
                     ))}
                 </section>
                 <section className={styles.pokemonpagination}>
-                    <Link href={ (parseInt(router.query.pagination) === 2) ? `/` : `/${parseInt(router.query.pagination) - 1}`}>
+                    <Link href={ (parseInt(router.query.pagination as string) === 2) ? `/` : `/${parseInt(router.query.pagination as string) - 1}`}>
                         <a>previous</a>
                     </Link>
-                    <Link href={`/${parseInt(router.query.pagination) + 1}`}>
+                    <Link href={`/${parseInt(router.query.pagination as string) + 1}`}>
                         <a>next</a>
                     </Link>
                 </section>
@@ -86,7 +93,6 @@ const Pagination: NextPage<StaticProps> = (props: StaticProps) => {
 
 export default Pagination
 
-//export const getStaticProps: GetStaticProps = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
     const getExtraData: any = async (pkmnurl: string) => {
         try {
@@ -102,9 +108,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
         }
     };
 
-    const { params } = context
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${(parseInt(params.pagination)-1) * 20}`)
-    console.log(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${params.pagination}`)
+    const {pagination} = context.params as IParams
+    //const { params } = context
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${(parseInt(pagination)-1) * 20}`)
+    //console.log(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${params.pagination}`)
     const data = await response.json()
     for (var i = 0; i < data.results.length; i++) {
         const { img, id, types } = await getExtraData(data.results[i].url);
