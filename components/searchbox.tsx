@@ -32,7 +32,7 @@ const useStyles = createUseStyles({
             height: '100%',
             border: '1px solid black',
             '&:hover': {
-                background: '#222'
+                background: 'rgba(0,0,0,0.6)'
             }
         }
     },
@@ -47,14 +47,14 @@ const SearchBox = () => {
     const [value, setValue] = useState('')
 
     const onHandleSend = (e: any) => {
-        console.log('hola'+value)
-        router.push(`/pokemons/${value}`)
+        // ((console.log('hola'+value)
+        if(value) router.push(`/pokemons/${value}`)
     }
 
     const onHandleSearch = (e: any) => {
-        if (e.target.value.match("^[a-zA-Z ]*$") != null) {
-            console.log(e.target.value)
-        }
+        // if (e.target.value.match("^[a-zA-Z ]*$") != null) {
+        //     console.log(e.target.value)
+        // }
         setValue(e.target.value.toLowerCase())
     }
 
@@ -75,7 +75,7 @@ const SearchBox = () => {
                     onKeyPress={e => validateNumber(e)}
                     pattern="[A-Za-z]{3}" />
                 <button onClick={e => onHandleSend(e)}>
-                    <Image className={classes.search} src="/search.svg" alt="search" width={72} height={16} />
+                    <Image className={classes.search} src="/search.svg" alt="search" width={35} height={15} />
                 </button>
             </div>
         </div>

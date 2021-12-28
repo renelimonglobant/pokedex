@@ -14,7 +14,6 @@ import Evolutions from '../../components/pokemonComponents/evolutions'
 
 const useStyles = createUseStyles({
     pokemonhead: {
-        //background: '#CC0000',
         textAlign: 'center',
         textTransform: 'capitalize',
         fontSize: 25,
@@ -36,15 +35,13 @@ const useStyles = createUseStyles({
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         marginTop: 10,
-        '& > div': {
-            paddingLeft: 30,
-            '&:first-child': { padding: 30 }
-        },
         '& .left': {
             flexGrow: '1',
             background: '#dcd7d6',
             boxShadow: '5px 4px 10px 1px rgba(0,0,0,0.4)',
+            border: '1px solid black',
             verticalAlign: 'middle',
+            padding: 30,
             '& div': {
                 display: 'flex',
                 alignItems: 'center',
@@ -58,6 +55,7 @@ const useStyles = createUseStyles({
             },
         },
         '& .right': {
+            paddingLeft: 0,
             flexGrow: '2',
             color: 'white',
             '& .typeBadge': {
@@ -65,6 +63,13 @@ const useStyles = createUseStyles({
                 marginTop: 35,
                 padding: '5px 15px',
                 boxShadow: '5px 4px 10px 1px rgba(0,0,0,0.4)'
+            }
+        }
+    },
+    '@media (min-width: 576px)': {
+        pokemondescription: {
+            '& .right': {
+                paddingLeft: 30,
             }
         }
     },

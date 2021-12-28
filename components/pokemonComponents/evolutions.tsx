@@ -6,19 +6,26 @@ const useStyles = createUseStyles({
         borderRadius: '5px 5px 5px 5px',
         display: 'flex',
         padding: 5,
-        '&> div': {
+        minHeight: '60px',
+        background: '#CC0000',
+        alignItems: 'center',
+        textAlign: 'center',
+        '& > div:not(:last-child)': {
+            borderRight: '2px solid black'
+        },
+        '& > div': {
             flexGrow: 1,
+            height: '100%',
             '& a': {
                 color: 'white',
                 flexGrow: 1,
-                display: 'block',
+                display: 'inline-block',
+                padding: '10px 0px',
                 width: '100%',
                 marginBottom: 2,
                 flexBasis: '50%',
-                background: 'black',
                 '&:hover': {
-                    color: 'black',
-                    background: 'white'
+                    background: '#3B4cca'
                 }
             }
         },
@@ -26,7 +33,6 @@ const useStyles = createUseStyles({
 })
 
 type EvolutionsProps = {
-    //evolution: Array<any>
     evolution: {
         species: {
             name: string
@@ -55,18 +61,37 @@ const Evolutions = (props: EvolutionsProps) => {
                     </a>
                 </Link>
             </div>
-            <div>
-                {props.evolution.evolves_to.map((specie, i: number) => (
-                    <>
-                        <div key={i}>
-                            <Link href={`/pokemons/${specie.species.name}`}>
+            {(props.evolution.evolves_to.length < 2) ? props.evolution.evolves_to.map((specie, i: number) => (
+                <>
+                    <div key={i}>
+                        <Link href={`/pokemons/${specie.species.name}`}>
+                            <a>
+                                {specie.species.name}
+                            </a>
+                        </Link>
+                    </div>
+                    {specie.evolves_to.map((subspecie, j: number) => (
+                        <div key={j}>
+                            <Link href={`/pokemons/${subspecie.species.name}`}>
                                 <a>
-                                    {specie.species.name}
+                                    {subspecie.species.name}
                                 </a>
                             </Link>
                         </div>
-                        {specie.evolves_to.map((subspecie, j: number) => (
-                            <>
+                    ))}
+                </>
+            )) :
+                <div>
+                    {props.evolution.evolves_to.map((specie, i: number) => (
+                        <>
+                            <div key={i}>
+                                <Link href={`/pokemons/${specie.species.name}`}>
+                                    <a>
+                                        {specie.species.name}
+                                    </a>
+                                </Link>
+                            </div>
+                            {specie.evolves_to.map((subspecie, j: number) => (
                                 <div key={j}>
                                     <Link href={`/pokemons/${subspecie.species.name}`}>
                                         <a>
@@ -74,11 +99,11 @@ const Evolutions = (props: EvolutionsProps) => {
                                         </a>
                                     </Link>
                                 </div>
-                            </>
-                        ))}
-                    </>
-                ))}
-            </div>
+                            ))}
+                        </>
+                    ))}
+                </div>
+            }
         </div>
     )
 }

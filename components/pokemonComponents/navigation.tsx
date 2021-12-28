@@ -11,7 +11,7 @@ const useStyles = createUseStyles({
         borderTop: 'solid 1px white',
         padding: 5,
         '& a:hover': {
-            background: '#123',
+            background: 'rgba(255,255,255,0.3)',
         },
         '& > a, > div': {
             flexGrow: 1,

@@ -32,9 +32,23 @@ const myStyles = createUseStyles({
         marginTop: 10,
         '& article': {
             background: 'white',
-            width: '23%',
+            width: '49%',
             boxShadow: '5px 4px 10px 1px rgba(0,0,0,0.4)',
             marginBottom: 18
+        }
+    },
+    '@media (min-width: 576px)': {
+        pokemonlist: {
+            '& article': {
+                width: '32%',
+            }
+        }
+    },
+    '@media (min-width: 768px)': {
+        pokemonlist: {
+            '& article': {
+                width: '23%',
+            }
         }
     },
     pokemonpagination: {
@@ -52,7 +66,7 @@ const myStyles = createUseStyles({
             '&:hover': {
                 background: 'black',
                 color: 'white'
-                }
+            }
         }
     }
 })
@@ -79,7 +93,7 @@ const Pagination: NextPage<StaticProps> = (props: StaticProps) => {
                     ))}
                 </section>
                 <section className={styles.pokemonpagination}>
-                    <Link href={ (parseInt(router.query.pagination as string) === 2) ? `/` : `/${parseInt(router.query.pagination as string) - 1}`}>
+                    <Link href={(parseInt(router.query.pagination as string) === 2) ? `/` : `/${parseInt(router.query.pagination as string) - 1}`}>
                         <a>previous</a>
                     </Link>
                     <Link href={`/${parseInt(router.query.pagination as string) + 1}`}>
@@ -108,9 +122,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
         }
     };
 
-    const {pagination} = context.params as IParams
+    const { pagination } = context.params as IParams
     //const { params } = context
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${(parseInt(pagination)-1) * 20}`)
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${(parseInt(pagination) - 1) * 20}`)
     //console.log(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${params.pagination}`)
     const data = await response.json()
     for (var i = 0; i < data.results.length; i++) {

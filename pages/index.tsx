@@ -27,9 +27,23 @@ const myStyles = createUseStyles({
     marginTop: 10,
     '& article': {
       background: 'white',
-      width: '23%',
+      width: '49%',
       boxShadow: '5px 4px 10px 1px rgba(0,0,0,0.4)',
       marginBottom: 18
+    }
+  },
+  '@media (min-width: 576px)': {
+    pokemonlist: {
+      '& article': {
+        width: '32%',
+      }
+    }
+  },
+  '@media (min-width: 768px)': {
+    pokemonlist: {
+      '& article': {
+        width: '23%',
+      }
     }
   },
   pokemonpagination: {
@@ -37,19 +51,19 @@ const myStyles = createUseStyles({
     justifyContent: 'space-between',
     paddingBottom: 10,
     '& a:first-child': {
-        borderRight: 'solid 1px black'
+      borderRight: 'solid 1px black'
     },
     '& a': {
-        flexGrow: 1,
-        textAlign: 'center',
-        fontWeight: 700,
-        background: 'white',
-        '&:hover': {
-            background: 'black',
-            color: 'white'
-        }
+      flexGrow: 1,
+      textAlign: 'center',
+      fontWeight: 700,
+      background: 'white',
+      '&:hover': {
+        background: 'black',
+        color: 'white'
+      }
     }
-}
+  }
 })
 
 
@@ -72,9 +86,9 @@ const Home: NextPage<StaticProps> = (props: StaticProps) => {
           ))}
         </section>
         <section className={styles.pokemonpagination}>
-            <Link href={`/2`}>
-              <a>next</a>
-            </Link>
+          <Link href={`/2`}>
+            <a>next</a>
+          </Link>
         </section>
       </General>
     </Container>

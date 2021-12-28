@@ -1,7 +1,8 @@
 import { createUseStyles } from 'react-jss'
-import Footer from '../footer'
-import Header from '../header'
+import Footer from './footer'
+import Header from './header'
 import SearchBox from '../searchbox'
+import Image from 'next/image'
 
 const useStyles = createUseStyles({
     principal: {
@@ -65,7 +66,8 @@ export default function General(props: GeneralProps) {
     return (
         <div className={classes.principal}>
             <Header>
-                <h1>Pokedex</h1>
+                {/* <h1>Pokedex</h1> */}
+                <Image src="/pokedeex.png" alt="Vercel Logo" width={240} height={90} />
             </Header>
             <main className={classes.myMain}>
                 <SearchBox />

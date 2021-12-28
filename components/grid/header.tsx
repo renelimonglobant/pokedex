@@ -7,6 +7,7 @@ const useStyles = createUseStyles({
         color: 'white',
         display: 'block',
         borderBottom: 'solid 2px black',
+        '& a': {display: 'block', textAlign: 'center'},
         '& h1': {
             fontWeight: 'bold',
             letterSpacing: 2,
