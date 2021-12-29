@@ -75,8 +75,11 @@ const myStyles = createUseStyles({
 const Pagination: NextPage<StaticProps> = (props: StaticProps) => {
     const styles = myStyles()
     const router = useRouter()
-    //console.log(props.pokemons.results)
-    //console.log(router.query.pagination)
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
+
     return (
         <Container>
             <Head>
@@ -115,8 +118,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
             return {
                 img: data.sprites.front_default,
                 id: data.id,
-                types: data.types
-            };
+                types: data.types,
+            }
         } catch (e) {
             console.log(e);
         }
@@ -145,18 +148,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
                 results: data.results
             }
         }
+        //revalidate: 30 /// time(seconds) to regenerate code
     }
 }
 
 export async function getStaticPaths() {
-    // const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    // const data = await response.json()
-    // const paths = data.map(post => {
-    //   return {
-    //     params: { postId: `${post.id}` }
-    //   }
-    // })
-
     return {
         paths: [
             { params: { pagination: '1' } },
@@ -166,5 +162,7 @@ export async function getStaticPaths() {
             { params: { pagination: '5' } },
         ],
         fallback: true
+        //fallback: false // don't allow to create pages that doesn't exits, if so, then go to 404 page
+        //fallback: 'blocking' // works like tru but wothout loading transition
     }
 }

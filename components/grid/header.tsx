@@ -1,13 +1,13 @@
 import Link from 'next/link'
-import { createUseStyles } from 'react-jss'
+import { createUseStyles, useTheme } from 'react-jss'
 
-const useStyles = createUseStyles({
+const useStyles = createUseStyles<RuleNames, HeaderType, CustomTheme>({
     head: {
-        background: '#ee1515',
+        background: ({ theme }) => theme.mainRed,
         color: 'white',
         display: 'block',
         borderBottom: 'solid 2px black',
-        '& a': {display: 'block', textAlign: 'center'},
+        '& a': { display: 'block', textAlign: 'center' },
         '& h1': {
             fontWeight: 'bold',
             letterSpacing: 2,
@@ -30,11 +30,18 @@ const useStyles = createUseStyles({
     }
 })
 
+type RuleNames = 'head' | '@media (min-width: 768px)'
+
 type HeaderType = {
     children: React.ReactNode
 }
+interface CustomTheme {
+    mainRed: string
+}
+
 const Header = (props: HeaderType) => {
-    const classes = useStyles()
+    const theme: CustomTheme = useTheme()
+    const classes = useStyles({ ...props, theme })
     return (
         <header className={classes.head}>
             <Link href={`/`}>

@@ -43,8 +43,8 @@ const TypeBadge = (props: TypeBadgeProps) => {
     const classes = useStyles()
     return (
         <div className={classes.badge}>
-            {props.badges.map(badge => (
-                <span key={badge.type.slot} className={badge.type.name}>{badge.type.name}</span>
+            {props.badges.map((badge, i) => (
+                <span key={i} className={badge.type.name}>{badge.type.name}</span>
             ))}
         </div>
     )

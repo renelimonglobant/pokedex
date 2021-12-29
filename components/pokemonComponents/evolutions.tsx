@@ -1,4 +1,5 @@
 import { createUseStyles } from 'react-jss'
+import React from 'react'
 import Link from 'next/link'
 
 const useStyles = createUseStyles({
@@ -62,7 +63,7 @@ const Evolutions = (props: EvolutionsProps) => {
                 </Link>
             </div>
             {(props.evolution.evolves_to.length < 2) ? props.evolution.evolves_to.map((specie, i: number) => (
-                <>
+                <React.Fragment key={i}>
                     <div key={i}>
                         <Link href={`/pokemons/${specie.species.name}`}>
                             <a>
@@ -79,12 +80,12 @@ const Evolutions = (props: EvolutionsProps) => {
                             </Link>
                         </div>
                     ))}
-                </>
+                </React.Fragment>
             )) :
                 <div>
                     {props.evolution.evolves_to.map((specie, i: number) => (
-                        <>
-                            <div key={i}>
+                        <React.Fragment key={i}>
+                            <div>
                                 <Link href={`/pokemons/${specie.species.name}`}>
                                     <a>
                                         {specie.species.name}
@@ -100,7 +101,7 @@ const Evolutions = (props: EvolutionsProps) => {
                                     </Link>
                                 </div>
                             ))}
-                        </>
+                        </React.Fragment>
                     ))}
                 </div>
             }

@@ -1,8 +1,9 @@
-import { createUseStyles } from 'react-jss'
+import { createUseStyles, ThemeProvider } from 'react-jss'
 import Footer from './footer'
 import Header from './header'
 import SearchBox from '../searchbox'
 import Image from 'next/image'
+import Main from './main'
 
 const useStyles = createUseStyles({
     principal: {
@@ -10,52 +11,11 @@ const useStyles = createUseStyles({
         maxWidth: '100%',
         margin: '0px auto',
     },
-    myMain: {
-        background: '#ee1515',
-        padding: {
-            top: 10,
-            right: 20,
-            left: 20
-        },
-        '& .pokemonlist': {
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            marginTop: 10,
-            '& article': {
-                background: 'white',
-                width: '23%',
-                marginBottom: 18
-            }
-        }
-    },
-    '@media (min-width: 768px)': {
-        myMain: {
-            width: 750,
-            maxWidth: 750,
-            margin: '0px auto',
-            //background: '#3b4cca'
-        },
-    }
 })
 
-/*
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) { ... }
-
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) { ... }
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) { ... }
-
-// X-Large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) { ... }
-
-// XX-Large devices (larger desktops, 1400px and up)
-@media (min-width: 1400px) { ... }*/
-
+const theme = {
+    mainRed: '#ee1515'
+}
 
 type GeneralProps = {
     children: React.ReactNode
@@ -65,15 +25,16 @@ export default function General(props: GeneralProps) {
     const classes = useStyles()
     return (
         <div className={classes.principal}>
-            <Header>
-                {/* <h1>Pokedex</h1> */}
-                <Image src="/pokedeex.png" alt="Vercel Logo" width={240} height={90} />
-            </Header>
-            <main className={classes.myMain}>
-                <SearchBox />
-                {props.children}
-            </main>
-            <Footer />
+            <ThemeProvider theme={theme}>
+                <Header>
+                    <Image src="/pokedeex.png" alt="Vercel Logo" width={240} height={90} />
+                </Header>
+                <Main>
+                    <SearchBox />
+                    {props.children}
+                </Main>
+                <Footer />
+            </ThemeProvider>
         </div>
     )
 }

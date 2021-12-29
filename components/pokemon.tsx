@@ -38,7 +38,7 @@ const Pokemon = (props: PokemonProps) => {
     const classes = useStyles()
     return (
         <div className={classes.pokebox}>
-            <Link href={`pokemons/${props.name}`}>
+            <Link href={`/pokemons/${props.name}`}>
                 <a>
                     <h2>
                         {props.name}
@@ -47,7 +47,6 @@ const Pokemon = (props: PokemonProps) => {
                     <TypeBadge badges={props.types} />
                 </a>
             </Link>
-
         </div>
     )
 }

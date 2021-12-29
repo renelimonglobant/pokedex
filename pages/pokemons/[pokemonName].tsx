@@ -10,7 +10,6 @@ import Characteristics from '../../components/pokemonComponents/characteristics'
 import TypeBadge from '../../components/typeBadge'
 import StatsBar from '../../components/pokemonComponents/statsBar'
 import Evolutions from '../../components/pokemonComponents/evolutions'
-//import { runMain } from 'module'
 
 const useStyles = createUseStyles({
     pokemonhead: {
@@ -21,7 +20,7 @@ const useStyles = createUseStyles({
         '& h2': {
             fontWeight: 800,
             letterSpacing: 2,
-            margin: { top: 20, bottom: 25},
+            margin: { top: 20, bottom: 25 },
             '& span': {
                 marginLeft: '25px',
                 color: 'white',
@@ -267,35 +266,32 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export async function getStaticPaths() {
-    //   return {
-    //     params: { postId: `${post.id}` }
-    //   }
-    /*
+    const list: { params :{pokemonName: string} }[] = []
     fetch('https://pokeapi.co/api/v2/pokemon/')
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             type Poke = {
                 name: string
                 url: string
             }
             data.results.map((el: Poke) => {
-                return {
-                    paths: [
-                        { params: { pokemonName: `${el.name}` } },
-                    ],
-                    fallback: true
-                }
+                let name = { params:{pokemonName: `${el.name}`} }
+                console.log(name)
+                list.push(name)
             })
         })
         .catch(e => console.log(e))
-        */
 
     return {
-        paths: [
-            { params: { pokemonName: 'bulbasaur' } },
-            { params: { pokemonName: 'charmander' } },
-        ],
+        paths: list,
         fallback: true
     }
+// return {
+    //     paths: [
+    //         { params: { pokemonName: 'bulbasaur' } },
+    //         { params: { pokemonName: 'charmander' } },
+    //     ],
+    //     fallback: true
+    // }
+
 }

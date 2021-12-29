@@ -6,7 +6,6 @@ import Container from '../components/grid/container'
 import Pokemon from '../components/pokemon'
 import General from '../components/grid/generalTemplate'
 import Link from 'next/link'
-// #f00000
 
 type StaticProps = {
   //pokemons: Array<any>
@@ -69,7 +68,6 @@ const myStyles = createUseStyles({
 
 const Home: NextPage<StaticProps> = (props: StaticProps) => {
   const styles = myStyles()
-  //console.log(props.pokemons.results)
   return (
     <Container>
       <Head>

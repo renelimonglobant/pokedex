@@ -5,7 +5,7 @@ const useStyles = createUseStyles({
     statsBar: {
         display: 'flex',
         flexDirection: 'row',
-        flexWrap: 'wrap',
+        flexWrap: 'nowrap',
         gap: 5,
         background: '#CC0000',
         alignItems: 'flex-end',
