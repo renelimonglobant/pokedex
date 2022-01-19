@@ -1,10 +1,12 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import type { AppProps } from "next/app";
+import Container from "../components/grid/container";
+import General from "../components/grid/generalTemplate";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <Container>
       <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -14,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta name="description" content="Description" />
         <meta name="keywords" content="Keywords" />
-        <title>Next.js PWA Example</title>
+        <title>Pokedex</title>
 
         <link rel="manifest" href="/manifest.json" />
         <link
@@ -32,8 +34,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <meta name="theme-color" content="#317EFB" />
       </Head>
-      <Component {...pageProps} />
-    </>
+      <General>
+        <Component {...pageProps} />
+      </General>
+    </Container>
   );
 }
 
