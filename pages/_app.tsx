@@ -6,7 +6,8 @@ import General from "../components/grid/generalTemplate";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Container>
+    <>
+      <Container>
       <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -34,10 +35,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <meta name="theme-color" content="#317EFB" />
       </Head>
+      {/* <Container> */}
       <General>
         <Component {...pageProps} />
       </General>
     </Container>
+    </>
   );
 }
 
